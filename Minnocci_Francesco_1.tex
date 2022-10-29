@@ -1,0 +1,202 @@
+\documentclass[a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage[italian]{babel}
+\usepackage{hyperref}
+\usepackage{amsmath, amssymb, amsthm}
+% for \lightning
+\usepackage{stmaryrd}
+\usepackage{geometry}
+\usepackage{tikz-cd}
+\usepackage{enumitem}
+
+\hypersetup{
+	colorlinks = true, % links instead of boxes
+	urlcolor   = blue, % external hyperlinks
+	linkcolor  = blue, % internal links
+	citecolor  = red   % citations
+}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\A}{\mathbb{A}}
+\newcommand{\Z}{\mathbb{Z}}
+
+\newcommand{\ssfrac}[2]{
+    \raisebox{+0.3ex}{$#1$}
+    /
+    \raisebox{-0.3ex}{$#2$}
+}
+
+\newcommand{\sfrac}[2]{
+    \raisebox{+0.3ex}{\scalebox{0.9}{$#1$}}
+    /
+    \raisebox{-0.3ex}{\scalebox{0.9}{$#2$}}
+}
+
+\renewcommand{\labelitemii}{$\circ$}
+\renewcommand{\Im}{\operatorname{Im}}
+
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}{Lemma}[section]
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
+\theoremstyle{definition}
+\newtheorem{example}{Example}[section]
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\theoremstyle{definition}
+\newtheorem{exercise}{Exercise}[section]
+
+\title{Istituzioni di Algebra 2022/2023}
+\author{Francesco Minnocci}
+\begin{document}
+\maketitle
+\section*{Homework 1}
+\setcounter{section}{1}
+\begin{exercise}
+	Consider the chain of prime ideals
+	\begin{equation}\label{eq:chain}
+		(0)\subsetneq\left(x  \right)\subsetneq (x,y)
+	\end{equation}
+	in  $\K\left[ x,y \right] $, which is maximal since we know that $\operatorname{dim}\left(
+	\K[x,y] \right) =2$.\\
+	Now, if we let $\pi$ be the projection homomorphism onto $$A:=\ssfrac{\K[x,y]}{(xy)},$$ we realize that $(\overline{x})$ is a prime ideal by the correspondence between prime ideals in
+	the quotient, as $(x)$ contains
+$\operatorname{Ker}\left( \pi \right) =(xy)$. Thus, we just need to show that there are no prime ideals below $(\overline{x})$ in $A$: $(\overline{0})$ is not prime, as $A$ has
+zero-divisors (e.g. $\overline{x}$), and if there were a prime ideal $\overline{0}\subsetneq \overline{\mathfrak{p}}\subsetneq\overline{x}$ we would get a prime $\mathfrak{p}$ in between $(0)$
+and $(x)$ in \eqref{eq:chain} (again by correspondence of prime ideals), which would go against $\operatorname{dim}\left( \K[x,y] \right) =2$.\qed
+\end{exercise}
+\begin{exercise}
+	We first prove the case where $A$ is a two-dimensional local integral domain: let $\mathfrak{m}$ be the unique maximal ideal, then we get
+	$\operatorname{ht}(\mathfrak{m})=\operatorname{dim}(A)=2$, and
+	$(0)$ is the unique minimal prime ideal since $A$ is a domain. Therefore, it is enough to prove that $A$ has infinitely many prime ideals of height 1: if by
+	contradiction there were finitely many prime ideals $$\mathfrak{p}_1,\dots,\mathfrak{p}_n$$
+	strictly contained between $(0)$ and $\mathfrak{m}$, then their union cannot contain  $\mathfrak{m}$ by prime avoidance, since if it did then the maximal ideal would be
+	contained in $\mathfrak{p}_k$ for some $k\in\left\{ 1,\dots,n \right\} $, which would be a contradiction. So, we can choose some element
+	$$x\in\mathfrak{m}\setminus\bigcup_{k=1}^n{\mathfrak{p}_k},$$ and by construction there can not be any other prime ideal containing $x$ below $\mathfrak{m}$, which is thus
+	minimal above it, which yields a contradiction by the Hauptidelsatz's bound $$\operatorname{ht}{\mathfrak{m}}\leq 1.$$
+	We now move on to the general case, which we shall prove by induction: if $\operatorname{dim}{(A)}=2$ and $A$ is a Noetherian ring, then we can reduce ourselves to the
+	"easier" case we just proved: consider a maximal chain which realizes the dimension $$ \mathfrak{p}\subsetneq\mathfrak{q}\subsetneq\mathfrak{m}\subsetneq A.$$ If we
+	quotient out by $\mathfrak{p}$ and localize by $\mathfrak{m}$, we get a local integral domain of dimension 2, as $\mathfrak{p}$ became the prime ideal $(\bar{0})$ in the
+	quotient, and localizing by $\mathfrak{m}$ didn't change the height of $\bar{\mathfrak{q}}$ (and it's still a domain after the localization, as localization and quotient commute by known facts of Algebra 2).
+	Thus, by the initial case we find infinitely many prime ideals of height 1, then use localization and quotient correspondence to get infinitely many prime ideals in $A$,
+	and since these are strictly contained between $\mathfrak{p}$ and $\mathfrak{m}$ they must have height $1$ by maximality of any such chain of length 2 in a two-dimensional
+	ring.\\
+	Now, suppose $\operatorname{dim}(A)=r+1$ and consider a maximal chain of prime ideals $$ \mathfrak{p}_0\subsetneq\mathfrak{p}_1\subsetneq\dots\subsetneq\mathfrak{p}_{r+1}
+	.$$ Regarding
+	heights $i\in\{1,\dots, r-1\}$ we can localize by $\mathfrak{p}_r$ and use the inductive hypothesis on $A_{\mathfrak{p}_r}$, which gives us infinitely
+	many prime ideals of height $i$ which correspond bijectively to prime ideals in $A$ of the same height. Furthermore, if we localize $A$ by the maximal ideal $\mathfrak{p}_{r+1}$ of the above
+	chain and then quotient it by the localization of $\mathfrak{p}_{r-1}$, we get
+	$$
+	\ssfrac{A_{\mathfrak{p}_{r+1}}}{\mathfrak{p}_{r-1}A_{\mathfrak{p}_{r+1}}},\cong
+	(\sfrac{A}{\mathfrak{p}_{r-1}})_{\mathfrak{p}_{r+1}}
+	$$
+	which
+	is a local, two-dimensional (the only primes of the maximal chain which survive are those which were not below $\mathfrak{p}_{r-1}$) integral domain (as we quotiented by a
+	prime ideal), so we can use the
+	initial case to get infinitely many prime ideals of height 1 in this ring. However, these correspond bijectively to prime ideals of height $r$ in $A$, by lifting through
+	localization and quotient.\\
+	Finally, in the case where $A$ is infinite-dimensional, given any integer we can pick a prime chain which is strictly longer, and localizing with respect to the highest
+	prime ideal of such chain lets us get back to the situation where $A$ is finite-dimensional, use the above proof and then conclude by correspondence in the
+	localization.\qed
+\end{exercise}
+\begin{exercise}\
+
+
+	\begin{itemize}
+	\item[(a)] We show both inequalities:
+		\begin{itemize}
+			\item $\operatorname{dim}(A)\leq\operatorname{dim}(B)$: this follows from the \textbf{Going up} Theorem, as we are in an integral extension and if
+				$$(0)\subsetneq\mathfrak{p}_1\subsetneq\dots\subsetneq\mathfrak{p}_r$$ is a prime chain in $A$, by
+				the theorem there exists a prime chain $$(0)\subsetneq\mathfrak{q}_1\subsetneq\dots\subsetneq\mathfrak{q}_r$$ in $B$, where $\forall
+				i\in\{1,\dots,n\}\:\mathfrak{q}_i$ lies over
+				$\mathfrak{p}_i$.
+			\item $\operatorname{dim}(A)\geq\operatorname{dim}(B)$ is a consequence of a remark made in class, namely that in an integral extension any two prime ideals of $B$
+				$$\mathfrak{q}_1\subsetneq\mathfrak{q}_2$$ cannot have the same contraction in $A$, so any prime chain in $B$ contracts to a prime
+				chain of equal
+				length in $A$ (as prime ideals contract to prime ideals).
+		\end{itemize}
+	\item[(b)] The inequality $\operatorname{ht}(\mathfrak{p})\geq\operatorname{ht}(\mathfrak{q})$ is again an application of the aforementioned remark to any prime chain in $B$ ending in
+		$\mathfrak{q}$ which realizes
+		$\operatorname{ht}(\mathfrak{q})$. For the other direction, let $$(0)\subsetneq\mathfrak{p}_1\subsetneq\dots\subsetneq\mathfrak{p}_r\subsetneq\mathfrak{p}$$ be a
+		prime chain in $A$ which realizes $\operatorname{ht}\left( \mathfrak{p} \right) $. Note that we are in the hypothesis of the \textbf{Going Down} Theorem, so that we can
+		construct the following prime chain in $B$: starting at $\mathfrak{q}=\mathfrak{p}\cap A$, where the Theorem gives us a $\mathfrak{q}_r\subsetneq\mathfrak{q}$ which
+		contracts to $\mathfrak{p}_r$, we inductively \textit{go down} using the Theorem, obtaining
+		$$(0)\subsetneq\mathfrak{q}_1\subsetneq\dots\subsetneq\mathfrak{q}_r\subsetneq\mathfrak{q},$$ where every $\mathfrak{q}_i$ contracts to the corresponding
+		$\mathfrak{p}_i$. Thus, $\operatorname{ht}{(\mathfrak{q})}\geq\operatorname{ht}{(\mathfrak{p})}$.\qed
+	\end{itemize}
+\end{exercise}
+\begin{exercise}(Done in collaboration with Sebastián Camponovo)\
+
+
+\begin{itemize}
+	\item[(a)] We prove both inclusions:
+	\begin{itemize}
+	\item $B\supseteq\left\{ b\in \mathbb{L} \mid \exists r\geq 0:b^{p^r}\in A \right\} $
+
+		If $b\in \mathbb{L}$ is such that $b^{p^r}\in A$ for some  $r\geq 0$, $b$ is a root of the monic polynomial $x^{p^r}-b^{p^r}$. Therefore, $b\in L$ is integral over A and by
+		definition of integral closure $b\in B$.
+	\item $B\subseteq\left\{ b\in \mathbb{L} \mid \exists r\geq 0:b^{p^r}\in A \right\} $
+
+		Pick any $b\in B$. Then, $b\in \mathbb{L}$, and by definition of purely inseparable extension there exists an $r\geq 0$ such that $b^{p^r}\in \K$. However, since in
+		particular $B$ is an integral extension of $A$, every such $b$ is integral over $A$, so $b$ is a root of a monic polynomial $f\in A[x]\setminus\left\{ 0 \right\}
+		$. But then, $b^{p^r}$ is a root of the monic
+		polynomial $f^{p^r}$ (since $f(x)^{p^r}=f(x^{p^r})$ in characteristic $p$ by the Fröbenius endomorphism), which also has coefficients in A, meaning $b^{p^r}\in\K$ is integral over the integrally closed ring $A$, and consequently $b^{p^r}\in A$.
+	\end{itemize}
+	\item[(b)] Let $$\nu: \K\to\Z\cup\left\{ +\infty \right\} $$ be a discrete valuation on the DVR $A$. Then, we can define the following valuation on $B$: we have showed in
+		class that in a purely inseparable extension there exists an $N\gg 0$ such that $\mathbb{L}^{p^N}\in\K$, so given such $N$ we define
+		\[
+			\begin{array}{ccccc}
+				&\eta:&\text{Frac}\left( B \right) &\longrightarrow&\Z\cup\left\{ +\infty \right\}\\
+				     &&\displaystyle\frac{b}{b'}&\longmapsto&\nu{(b^{p^N})}-\nu{(b'^{p^N})}.
+			\end{array}
+		\]
+		Now, it is enough to show that $\eta$ is a valuation on elements of $B$ (and then by construction $B$ will be the valuation ring of $\eta$, and thus a DVR):
+		indeed, take any two $b,b'\in B$, then
+		\begin{itemize}
+			\item $\eta(b\cdot b')=\nu((b\cdot b')^{p^N})=\nu(b^{p^N})\cdot\nu(b'^{p^N})=\eta(b)+\eta(b')$, since $\nu$ is a valuation;
+			\item $\eta(b+
+			b')=\nu((b+b')^{p^N})=\nu(b^{p^N}+{b'}^{p^N})\leq\text{min}{\left\{\nu(b^{p^N}),\nu(b'^{p^N})\right\}}=\text{min}{\left\{\eta(b),\eta(b')\right\}}$, where the second equality follows from the Fröbenius
+				endomorphism, and the inequality holds because $\nu$ is a valuation;
+			\item $\eta(b)=+\infty\iff\nu(b^{p^N})=+\infty\iff b^{p^N}=0\iff b=0$ since again $\nu$ is a valuation.
+		\end{itemize}
+		\qed
+\end{itemize}
+\end{exercise}
+\begin{exercise}
+	We will see that $\mathfrak{q}=(y,\frac{x}{y})$ is a maximal ideal of $B$, and thus prime: indeed, since we can write $x$ as  $y\cdot \frac{x}{y}$, we have that $\mathfrak{q}=(x,y,\frac{x}{y})$, so
+	taking the quotient $\sfrac{B}{\mathfrak{q}}$ we get the base field $\K$:
+	$$\ssfrac{B}{\mathfrak{q}}=\frac{\K[x,y,\frac{x}{y}]}{\left(x,y,\frac{x}{y}\right)}\cong\frac{\K[x,y,z]}{\left( x,y,z,zy-x \right) }\cong \frac{\K[x,y,z]}{\left( x,y,z
+	\right) }\cong\K.$$ Therefore, $\mathfrak{q}$ is maximal. Now, $\mathfrak{q}\cap A=(x,y,\frac{x}{y})\cap
+	\K[x,y]\supseteq(x,y)=\mathfrak{p}$, but since $\mathfrak{p}$ is maximal we get $\mathfrak{q}\cap A=\mathfrak{p}.$
+
+	Let's compute the height of the two ideals: we know that $\operatorname{ht}(\mathfrak{p})=\operatorname{dim}\left( A \right)=2$, and since $\mathfrak{q}$ is maximal its
+	height is equal to $\operatorname{dim}(B)$. For finitely generated $\K$-algebras, we have showed that dimension and transcendence degree coincide, and
+	$\text{tr.}\text{deg.}_{\K}(B)=2$ since $\left\{ x,y \right\} $ is a maximal subset of
+	algebraically independent elements in $B$ (if we were to add $\frac{x}{y}$ to such set, we would get the algebraic dependency relation $x=y\cdot \frac{x}{y}).$ In conclusion,
+	$\operatorname{ht}(\mathfrak{p})=\operatorname{ht}(\mathfrak{q})=2$.
+
+	Regarding $\sfrac{B_{\mathfrak{q}}}{\mathfrak{p}B_{\mathfrak{q}}}$, we observe that
+	\begin{equation}\label{eq:isomorphism}
+		\ssfrac{B_{\mathfrak{q}}}{\mathfrak{p}B_{\mathfrak{q}}}\cong(\ssfrac{B}{\mathfrak{p}B})_{\overline{\mathfrak{q}}},
+	\end{equation}
+	and since $\mathfrak{p}B$ is the ideal generated by $\{x,y\}$ in B, we have
+	$$ \ssfrac{B}{\mathfrak{p}B}=\frac{\K\left[x,y,\frac{x}{y}\right]}{(x,y)}\cong\frac{\K[x,y,z]}{(x,y,zy-x)}\cong\frac{\K[x,y,z]}{\left( x,y \right) }\cong\K\left[z\right] .$$
+	Now, the ideal $\overline{\mathfrak{q}}$ is identified with $\left(z\right)$ in the above isomorphism, and as such it is the unique maximal ideal of $\sfrac{B}{\mathfrak{p}B}$. In conclusion,
+\eqref{eq:isomorphism} tells us that $$ \ssfrac{B_{\mathfrak{q}}}{\mathfrak{p}B_{\mathfrak{q}}}\cong\K[z]_{(z)} \implies \operatorname{dim}(\ssfrac{B_{\mathfrak{q}}}{\mathfrak{p}B_{\mathfrak{q}}}) =
+\operatorname{dim}(\K[z]_{(z)})=1,$$
+which yields the desired strict inequality:
+	$$ \operatorname{ht}(\mathfrak{q})<\operatorname{ht}(\mathfrak{p})+\operatorname{dim}(\ssfrac{B_{\mathfrak{q}}}{\mathfrak{p}B_{\mathfrak{q}}}) .$$\qed
+\end{exercise}
+\end{document}
