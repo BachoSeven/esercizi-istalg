@@ -1,0 +1,289 @@
+\documentclass[a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage[italian]{babel}
+\usepackage{hyperref}
+\usepackage{amsmath, amssymb, amsthm}
+% for \lightning
+\usepackage{stmaryrd}
+\usepackage{geometry}
+\usepackage{tikz}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+
+\usetikzlibrary{decorations.markings}
+\tikzset{double line with arrow/.style args={#1,#2}{decorate,decoration={markings,%
+mark=at position 0 with {\coordinate (ta-base-1) at (0,1pt);
+\coordinate (ta-base-2) at (0,-1pt);},
+mark=at position 1 with {\draw[#1] (ta-base-1) -- (0,1pt);
+\draw[#2] (ta-base-2) -- (0,-1pt);
+}}}}
+\tikzset{Equal/.style={-,double line with arrow={-,-}}}
+
+\hypersetup{
+	colorlinks = true, % links instead of boxes
+	urlcolor   = blue, % external hyperlinks
+	linkcolor  = blue, % internal links
+	citecolor  = red   % citations
+}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\A}{\mathbb{A}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Hom}{\operatorname{Hom}}
+\newcommand{\Ext}{\operatorname{Ext}}
+\newcommand{\Tor}{\operatorname{Tor}}
+
+\newcommand{\sfrac}[2]{
+    \raisebox{+0.3ex}{$#1$}
+    /
+    \raisebox{-0.3ex}{$#2$}
+}
+
+\newcommand{\ssfrac}[2]{
+    \raisebox{+0.3ex}{\scalebox{0.9}{$#1$}}
+    /
+    \raisebox{-0.3ex}{\scalebox{0.9}{$#2$}}
+}
+
+\newcommand\vdashline{
+  \tikz[baseline]\draw[thick, dashed](0,-\dp\strutbox)--(0,\ht\strutbox);
+}
+
+\renewcommand{\labelitemii}{$\circ$}
+\renewcommand{\Im}{\operatorname{Im}}
+
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}{Lemma}[section]
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
+\theoremstyle{definition}
+\newtheorem{example}{Example}[section]
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\theoremstyle{definition}
+\newtheorem{exercise}{Exercise}[section]
+
+\title{Istituzioni di Algebra 2022/2023}
+\author{Francesco Minnocci}
+\begin{document}
+\maketitle
+\section*{Homework 3}
+\setcounter{section}{3}
+\begin{exercise}
+	\begin{itemize}\
+
+
+		\item[(a)]
+We consider the injective resolution given by the following exact sequence:
+\begin{equation}\label{eq:seq}
+\begin{tikzcd}
+	0 \rar & {\sfrac{\Z}{p\Z}} \rar["i"] & {\sfrac{\Q}{\Z}} \rar["\pi"] & {\sfrac{\Q}{\Z}} \rar & 0,
+\end{tikzcd}
+\end{equation}
+where the map $i$ is given by multiplication by $\frac{1}{p}$, and $\pi$ is composition of the projection to the cokernel of $i$,
+$$\sfrac{\Q}{\Z}\to\sfrac{\sfrac{\Q}{\Z}}{\langle\frac{1}{p}\rangle_{\ssfrac{\Q}{\Z}}},$$ with
+the isomorphism \begin{equation}\label{eq:iso}\sfrac{\sfrac{\Q}{\Z}}{\langle\frac{1}{p}\rangle_{\ssfrac{\Q}{\Z}}}\cong\ssfrac{\Q}{\Z}\end{equation} induced by multiplication by $p$ in one direction and division by $p$ in the other one.
+
+Now, applying the $\Hom_{\Z}\left( \ssfrac{\Z}{p\Z},- \right) $ functor to \eqref{eq:seq} yields the left-exact sequence
+\begin{equation*}
+\begin{tikzcd}
+	0 \rightarrow &[-3em] \Hom_{\Z}{\left(\sfrac{\Z}{p\Z},\sfrac{\Z}{p\Z}\right)} \rar["i^\star"] & \Hom_{\Z}{\left(\sfrac{\Z}{p\Z},{\sfrac{\Q}{\Z}}\right)} \rar["\pi^\star"] &
+	\Hom_{\Z}{\left(\sfrac{\Z}{p\Z},{\sfrac{\Q}{\Z}}\right)} \rightarrow &[-3em] 0,
+\end{tikzcd}
+\end{equation*}
+where each term is isomorphic to $\ssfrac{\Z}{p\Z}$, which tells us that $$\Ext_{\Z}^i{\left(\sfrac{\Z}{p\Z},\sfrac{\Z}{p\Z}\right)}=0~\forall i>1,$$ and that, since $\pi^\star=0$
+by construction,
+$$\Ext_{\Z}^1\left( \sfrac{\Z}{p\Z},\sfrac{\Z}{p\Z}
+	\right)=\sfrac{\Hom_{\Z}{\left(\sfrac{\Z}{p\Z},{\sfrac{\Q}{\Z}}\right)}}{\Im\left( \pi^\star \right) }\cong\sfrac{\Z}{p\Z}.$$
+\item[(b)] Since by \textbf{Proposition} 5.9 any class $$c\in\Ext_{\Z}^1\left( \sfrac{\Z}{p\Z},\sfrac{\Z}{p\Z}\right)=\Hom_{\Z}\left(\sfrac{\Z}{p\Z},\sfrac{\Q}{\Z}\right)$$
+	corresponds to an extension class in $\Ext_{\Z}\left( \sfrac{\Z}{p\Z},\sfrac{\Z}{p\Z} \right) $, using a dual construction to that in the proof of the
+			aformentioned proposition we can use the pullback of our injective resolution to build the following diagram, which will let us find the desired extension:
+\begin{equation*}
+\begin{tikzcd}
+	0\rar&\sfrac{\Z}{p\Z}\ar[d, Equal]\rar[dashed]&Y\ar[d, dashed]\rar[dashed]&\sfrac{\Z}{p\Z}\ar[d,"c"]\rar&0\\
+	0 \rar & {\sfrac{\Z}{p\Z}} \rar["i"] & {\sfrac{\Q}{\Z}} \rar["\pi"] & {\sfrac{\Q}{\Z}} \rar & 0,
+\end{tikzcd}
+\end{equation*}
+where $Y$ is the pullback.
+
+Now, if
+\begin{enumerate}
+	\item$c=0$: then, we know from the proposition that the corresponding split extension is $$\sfrac{\Z}{p\Z}\oplus\sfrac{\Z}{p\Z};$$ and we can see this from the pullback
+		construction as well since $$Y=\left\{ (a,b) \in\sfrac{\Q}{\Z}\oplus\sfrac{\Z}{p\Z}\mid\:\pi(a)=c(b) \right\},$$ and $\pi(a)=0\iff
+	a\in\Im(i)\cong\sfrac{\Z}{p\Z}$.
+	\item $c\neq 0$ : remembering that we made the identification \eqref{eq:iso}, we have $$c(\overline{1})=\frac{n}{p^2}\in\sfrac{\Q}{\Z};$$
+		with $n\neq 0$. In this case the pullback is determined by the condition $$\pi(a)=\frac{nb}{p^2}\iff a=\frac{nb}{p^2}+\frac{m}{p}=\frac{mp+nb}{p^2},$$
+		for some $m\in\left\{ 0,\dots,{p-1} \right\} $. This gives us an isomorphism
+		$$Y\overset{\Phi}{\cong}\sfrac{\Z}{p^2\Z},$$
+		where $$\Phi(a,b)=mp+nb$$ and $$\Phi^{-1}(q)=\left(\frac{q}{p^2},j\cdot n^{-1}\right),$$
+		where $q=ip+j\in\frac{\Z}{p^2\Z}$.
+\end{enumerate}
+\end{itemize}
+\end{exercise}
+\begin{exercise}
+First, notice that by the structure theorem for finitely generated abelian groups we have
+$$ A\cong A_\text{tors}\oplus\Z^k ,$$
+for some $k\in \N$.
+
+Now, take the following injective resolution of $\Z$:
+\begin{equation*}
+\begin{tikzcd}
+	0 \rar & {\Z} \rar["i"] & {\Q} \rar["\pi"] & {\sfrac{\Q}{\Z}} \rar & 0,
+\end{tikzcd}
+\end{equation*}
+Then, applying the $\Hom_{\Z}\left( A,- \right) $ functor yields the left-exact sequence
+\begin{equation}\label{eq:hom}
+\begin{tikzcd}
+	0 \rightarrow &[-3em] \Hom_{\Z}{\left(A,\Z\right)} \rar["i^\star"] & \Hom_{\Z}{\left(A,\Q\right)} \rar["\pi^\star"] &
+	\Hom_{\Z}{\left(A,{\sfrac{\Q}{\Z}}\right)} \rightarrow &[-3em] 0,
+\end{tikzcd}
+\end{equation}
+and we notice that, since for any $\Z$-module $B$ $$\Hom_{\Z}\left( A,B \right) \cong\Hom_{\Z}\left( A_\text{tors},B \right)\oplus\Hom_{\Z}\left( \Z^k,B \right).$$
+
+Also, if $B=\Z$ or $B=\Q$ then  $\Hom_{\Z}\left( A_\text{tors},B \right)=0,$ as each element of $A_\text{tors}$ has finite order, must go to an element of finite order
+in $B$, which is necessarily $0$).
+
+Thus, can reduce the sequence in \eqref{eq:hom} through successive isomorphisms to:
+\begin{equation*}
+\begin{tikzcd}
+	0 \rar & \Hom_{\Z}{\left(\Z^k,\Z\right)} \rar["i^\star"]\ar[d,"\cong"]&\Hom_{\Z}{\left(\Z^k,\Q\right)} \rar["\pi^\star"]\ar[d,"\cong"] &
+	\Hom_{\Z}{\left(A,{\sfrac{\Q}{\Z}}\right)} \rar\ar[d,"\cong"] & 0\\
+	0 \rar & {\Z^k} \rar["i^\star"] & {\Q^k} \rar["\pi^\star"] & {\left(\sfrac{\Q}{\Z}\right)^k\oplus\Hom_{\Z}\left( A_\text{tors},\sfrac{\Q}{\Z} \right)} \rar & 0.
+\end{tikzcd}
+\end{equation*}
+Here, the induced map $\pi^\star$ is the projection of $\Q^k$ to $\left(\ssfrac{\Q}{\Z}\right)^k$; therefore, we are ready to compute the first cohomology group of this sequence:
+$$\Ext_{\Z}^1\left( A,\Z \right)=\frac{\left(\sfrac{\Q}{\Z}\right)^k\oplus\Hom_{\Z}\left( A_\text{tors},\sfrac{\Q}{\Z} \right)}{\Im\left( \pi^\star \right) }\cong\Hom_{\Z}\left( A_\text{tors},\sfrac{\Q}{\Z} \right).$$
+\end{exercise}
+\begin{exercise}
+	\begin{itemize}\
+
+
+		\item[(a)] Since $A$ is and local with maximal ideal $(\overline{t})$, and since (\textbf{Proposition} 2.17) projective modules over local rings are free, once we notice that
+	$$ \overline{t}\cdot(\overline{t})=0 ,$$
+	we get that $\ker\left( p \right) $ cannot be free as an $A$-module, and thus cannot be projective as well.
+		\item[(b)] We observe that we can extend the exact sequence
+			$$ 0\rightarrow \ker{(p)}\overset{i}{\hookrightarrow} A\overset{p}{\twoheadrightarrow}\K\rightarrow 0 $$
+			to a resolution of $\K$ like so:
+			\begin{equation}\label{eq:res}
+			\begin{tikzcd}[column sep=small]
+				\cdots\rar&A\rar["\cdot t"]&{A} \rar["\cdot t"]\ar[d, "\pi", two heads] & {A} \rar["p", two heads] & {\K} \rar & 0.\\
+				&&{\ker{(p)}} \ar[ru, "i", hook]
+			\end{tikzcd}
+			\end{equation}
+			This way, we have an infinite projective (as $A$ is free on itself and thus projective) resolution of $\K$ as an $A$-module, since $$\ker{(p)}=t\cdot A$$ and
+			$$\Im{(\cdot t)}=t\cdot A.$$
+		\item[(c)] We apply the $-\otimes\K$ functor to the resolution \eqref{eq:res}:
+			\begin{equation*}
+			\begin{tikzcd}
+				\cdots\rar&{A\otimes\K}\rar["\cdot t\otimes\text{id}_{\K}"]&{A\otimes\K} \rar["p\otimes\text{id}_{\K}"] & {\K\otimes\K}.
+			\end{tikzcd}
+			\end{equation*}
+			Now, each term in the above is isomorphic to $\K$ by known properties of the tensor product; moreover, the induced maps are all $0$. This is obvious for the
+		ones coming from multiplication by $t$, and we verify it directly for the last map:
+		$$ (p\otimes\text{id}_{\K})(a\otimes k)=ta\otimes k=a\otimes tk=0~\forall a\in A,\:k\in\K .$$
+		Therefore, we have that $$\Tor^d_A{(\K,\K)}\cong\K~\forall d,$$
+		and thus by the characterization of global dimension given in \textbf{Corollary 6.9} we have that $$\operatorname{gldim}(A)=\operatorname{pd}(\K)=+\infty.$$
+	\end{itemize}
+
+\end{exercise}
+\begin{exercise}
+(done in collaboration with Lucio Tanzini)\
+
+	\begin{itemize}
+		\item[(a)] Since $M$ is finitely generated, there exists an $r$ such that $A^{r}$ projects onto $M$. Now, the kernel of such map is finitely generated (as $A$ is
+		Noetherian), so we can reiterate such construction by defining:
+		\begin{align*}
+			M^0&:=M\\
+			M^i&:=\ker\left( A^{r_{i-1}}\twoheadrightarrow M^{i-1} \right),~i\geq1\\
+			r_i&:=\operatorname{rk}\left( M^i \right),~i\geq0.
+		\end{align*}
+		Then, we have the following exact sequence:
+		\begin{equation*}
+			\begin{tikzcd}[column sep=small]
+				&&&&{M^1} \ar[rd, "i", hook]\\
+				0\rar & M^d\rar&{A^{r_{d-1}}}\rar&{\cdots}\rar&{A^{r_1}} \rar\ar[u, two heads] & {A^{r_0}} \rar[two heads] & {M} \rar & 0.
+			\end{tikzcd}
+		\end{equation*}
+	\item[(b)] Notice that we can replace $A$ with $\K[x_1,\dots,x_d]_{(x_1,\dots,x_d)}$, as $M^d$ is projective if and only if $M^d\otimes\K$ is, since being projective is a
+		local property.
+
+		Then, we: prove inductively that $(x_1,\dots,x_i)$ is a regular sequence in $M^i$ for all $i\leq d$, or equivalently that multiplication by any $x_i$ is injective
+		in $\ssfrac{M^i}{(x_1,\dots,x_i)}$.
+
+		If $i=1$, $M^1\hookrightarrow A^{r_0}$, thus multiplication by $x_1$ is injective on $M^1$ as it injects in a direct sum of copies of $A$ and $x_1$ is not a
+		zero-divisor in $A$.
+
+		If $i>1$, the inductive hypothesis tells us that $(x_1,\dots,x_{i-1})$ is regular on $M^{i-1}$; and we show by induction that, for $0\leq k\leq
+		i-2$ (using the
+		notation $X_k:=(x_1,\dots,x_k)$), multiplication by $x_{k+1}$ is injective and \begin{equation}\label{eq:snake}
+			0\rightarrow \sfrac{M^i}{X_k M^i}\rightarrow
+			\sfrac{A^{r_{i-1}}}{X_k
+		A^{r_{i-1}}}\rightarrow\sfrac{M^{i-1}}{X_k M^{i-1}}\rightarrow 0
+	\end{equation}
+		is exact.
+
+		If $k=0$, then this is true by construction of the $M^i$s; and if $k>0$ we can apply the Snake Lemma to the sequence in \eqref{eq:snake} (using $X_{k-1}$) on both
+		rows (which is exact by inductive hypothesis), and with vertical
+		maps multiplication by $x_k$, which are all three injective by inductive hypothesis, to obtain the exact sequence of cokernels
+		$$ 0\rightarrow \sfrac{M^i}{X_k M^i}\rightarrow \sfrac{A^{r_{i-1}}}{X_k A^{r_{i-1}}}\rightarrow\sfrac{M^{i-1}}{X_k M^{i-1}}\rightarrow 0 ,$$
+		as desired. Furthermore, since this means that $\ssfrac{M^i}{X_k M^i}$ injects into a direct sum of copies of $\ssfrac{A}{X_k}$, by the same similar reasoning as in
+		the case $i=1$ multiplication by $x_{k+1}$ is injective in $\ssfrac{A}{X_k}$, and thus in $\ssfrac{M^i}{X_k M^i}$.
+
+		Now, we show by reverse induction on $k\leq d$ that $\ssfrac{M^d}{X_k M^d}$ is free over $\ssfrac{A}{X_k}$: if $k=d$, then $\ssfrac{M^d}{X_k M^d}$ is a vector space
+		over $\K$, and thus it is free. Otherwise, suppose that the stament holds for $k+1$, let $t$ be the rank of $\ssfrac{M^d}{X_{k+1} M^d}$ over $\ssfrac{A}{X_{k+1}}$,
+		and consider the following diagram:
+		\begin{equation*}
+			\begin{tikzcd}[column sep=small]
+				\left(\ssfrac{A}{X_{k}}\right)^t\ar[d, dashed, "\overline{\varphi}"]\rar[two heads]\ar[rd,"\varphi"]&\left(\ssfrac{A}{X_{k+1}}\right)^t\ar[d,"\cong"]\\
+				\ssfrac{M^d}{X_{k} M^d}\rar[two heads]&\ssfrac{M^d}{X_{k+1} M^d}.
+			\end{tikzcd}
+		\end{equation*}
+		Here, $\varphi$ is given by composition, and we construct $\overline{\varphi}$ by lifting images of $\varphi$, so that it makes the diagram commute. To show that it is surjective, we notice that, if
+		$N$ is the submodule of $\sfrac{M^d}{X_k M^d}$ generated by the image of $\overline{\varphi}$, and since the horizontal maps are projections with respect to the
+		image of multiplication by $x_{k+1}$, we have
+		$$ \sfrac{M^d}{X_k M^d}=N+x_{k+1}\cdot\sfrac{M^d}{X_k M^d} ,$$
+		and since $x_{k+1}$ is contained in the maximal ideal of $\ssfrac{A}{X_k}$, we can conclude using \textbf{Nakayama} that
+		$$ N=\Im{\varphi}=\sfrac{M^d}{X_k M^d} .$$
+		We therefore only need injectivity of $\overline{\varphi}$, which follows from the injectivity of multiplication by $x_{k+1}$ we proved previously: take the diagram
+
+		\begin{equation*}
+			\begin{tikzcd}
+				0 \rar & \left(\ssfrac{A}{X_{k}}\right)^t \rar["\cdot x_{k+1}", hook,]\ar[d, "\overline{\varphi}"]&\left(\ssfrac{A}{X_{k}}\right)^t \rar[two heads]\ar[d,"\overline{\varphi}"] & \left(\ssfrac{A}{X_{k+1}}\right)^t \rar\ar[d,"\cong"] & 0\\
+			0 \rar & \sfrac{M^d}{X_k M^d} \rar["\cdot x_{k+1}", hook] & \sfrac{M^d}{X_k M^d} \rar[two heads] & \sfrac{M^d}{X_{k+1} M^d} \rar & 0.
+			\end{tikzcd}
+		\end{equation*}
+		Since we have shown that  multiplication by $x_{k+1}$ is injective, both rows are exact and we can apply the Snake Lemma to obtain an isomorphism between
+		$\ker{(\overline{\varphi})}$ and $x_{k+1}\cdot\ker{(\overline{\varphi})}$, which means that we can apply \textbf{Nakayama} to get $\ker{(\overline{\varphi})}=0$,
+		which yields an isomorphism between $\ssfrac{M^d}{X_k M^d}$ and a direct sum of copies of $\left( \ssfrac{A}{X_k} \right)$, as desired.
+
+	In conclusion, for $k=0$ we get that $M^d$ is a free module of rank $t$ over $A$, and is thus projective.
+
+	Finally, by \textbf{Proposition} 6.2 we can conclude that $\text{pd}(M)\leq d$, which gives us Hilbert's Syzygy Theorem.
+	\end{itemize}
+
+\end{exercise}
+\begin{exercise}
+	Let $(x_1,\dots,x_d)$ be a regular sequence in $A$. Then, by \textbf{Corollary} 8.14, we have $$\Ext_A^i\left( \K,\K \right)\cong H^i\left( \Hom\left( K(\underline{x}),\K \right)  \right),$$
+	and since $$ K(\underline{x})_i=\Lambda^i{A^d}\cong A^{\binom{d}{i}} ,$$
+	where the isomorphism follows from \textit{Facts} 7.11 (6), we have that $$\Hom\left( \Lambda^i A^d,\K \right)\cong\K^{\binom{d}{i}}.$$
+	Therefore, we only need to show that the cohomology of the above complex picks out each term, which is true because the differentials are all zero: indeed, if $i>0$ take
+	$\phi\in\Hom\left( \Lambda^i A^d,\K \right)$. Then, we have
+	$$d_{\underline{x}}^i{(\phi)}\left( \bigwedge_{k=1}^{i+1}{\underline{a}_{k}} \right) =\phi\circ
+	d_{\underline{x}}{\left(\bigwedge_{k=1}^{i+1}{\underline{a}_{k}}\right)}=\phi\left( \sum_{k=1}^{i+1}{(-1)^{k+1}\left( b_1 x_1+\dots+b_d x_d \right)\cdot
+	\bigwedge_{k=1,k\neq i}^{i+1}{\underline{a}_k} } \right)=0,$$
+	where $\underline{b}$ is the scalar product of $\underline{a}$ and $\underline{x}$, and the last equality follows from linearity of $\phi$ and the fact that the
+	$x_1,\dots,x_d$ map to 0 in $\K$. The case $i=0$ is the same if we understand the empty wedge product to be $1$.
+\end{exercise}
+\end{document}
