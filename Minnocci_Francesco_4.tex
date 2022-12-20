@@ -1,0 +1,280 @@
+\documentclass[a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage[italian]{babel}
+\usepackage{hyperref}
+\usepackage{amsmath, amssymb, amsthm}
+% for \lightning
+\usepackage{stmaryrd}
+\usepackage{geometry}
+\usepackage{tikz}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+
+
+\usetikzlibrary{decorations.markings}
+
+\tikzset{double line with arrow/.style args={#1,#2}{decorate,decoration={markings,%
+mark=at position 0 with {\coordinate (ta-base-1) at (0,1pt);
+\coordinate (ta-base-2) at (0,-1pt);},
+mark=at position 1 with {\draw[#1] (ta-base-1) -- (0,1pt);
+\draw[#2] (ta-base-2) -- (0,-1pt);
+}}}}
+\tikzset{Equal/.style={-,double line with arrow={-,-}}}
+
+
+\hypersetup{
+	colorlinks = true, % links instead of boxes
+	urlcolor   = blue, % external hyperlinks
+	linkcolor  = blue, % internal links
+	citecolor  = red   % citations
+}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\A}{\mathbb{A}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Hom}{\operatorname{Hom}}
+\newcommand{\Ext}{\operatorname{Ext}}
+\newcommand{\Tor}{\operatorname{Tor}}
+
+\newcommand{\sfrac}[2]{
+    \raisebox{+0.3ex}{$#1$}
+    /
+    \raisebox{-0.3ex}{$#2$}
+}
+
+\newcommand{\ssfrac}[2]{
+    \raisebox{+0.3ex}{\scalebox{0.9}{$#1$}}
+    /
+    \raisebox{-0.3ex}{\scalebox{0.9}{$#2$}}
+}
+
+\newcommand\vdashline{
+  \tikz[baseline]\draw[thick, dashed](0,-\dp\strutbox)--(0,\ht\strutbox);
+}
+
+\renewcommand{\labelitemii}{$\circ$}
+\renewcommand{\Im}{\operatorname{Im}}
+
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}{Lemma}[section]
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
+\theoremstyle{definition}
+\newtheorem{example}{Example}[section]
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\theoremstyle{definition}
+\newtheorem{exercise}{Exercise}[section]
+
+\title{Istituzioni di Algebra 2022/2023}
+\author{Francesco Minnocci}
+\begin{document}
+\maketitle
+\section*{Homework 4}
+\setcounter{section}{4}
+\begin{exercise}
+	\begin{itemize}\
+
+		\item[(a)] Let $F$ be the functor from $D^0(\mathcal{A})$ to $\mathcal{A}$ which sends $A^\bullet$ to its $0$-th homology; we construct a quasi-inverse $G$ as
+			the inclusion functor which sends an object $A$ to a complex concentrated in degree $0$.
+
+			Clearly, $G\circ F=1_{D^0(A)}$, as in a complex where the maps are all zero the $i$-th homology picks out precisely the $i$-th term.
+On the other hand, $F\circ G(A^\bullet)\cong A^\bullet$ in $D(A)$ by the following isomorphism:
+\begin{equation}\label{eq:trunc}
+\begin{tikzcd}
+	\dots\rar&{A^{-1}}\rar["d^{-1}"]\ar[d]&{A^0} \rar["d^0"]\ar[d, "\pi"]&{A^1}\ar[d,Equal]\rar&\dots\\
+		 &0\rar&{\sfrac{A^0}{B^0}} \rar["\overline{d^0}"] & {A^1} \rar & \dots\\
+		 &0\rar\ar[u,Equal]&{H^0(A^\bullet)}\rar\ar[u,"i"]&0\ar[u],
+\end{tikzcd}
+\end{equation}
+		 where both morphisms of complexes are quasi-isomorphisms by hypothesis, as they are the natural morphisms associated to the truncations of respectively the first row in
+		 degrees $\geq 0$, and of the second row in degrees $\leq 0$.
+	 \item[(b)] We claim that there cannot be such an equivalence: let $D^{0,1}(\mathcal{A})$ be the full subcategory of $D(\mathcal{A})$ spanned by objects with
+		 $H^i(A^\bullet)=0$ for $i\neq 0$, and let $F$ be the inclusion functor from $C^{0,1}(\mathcal{A})$ to $D^{0,1}(\mathcal{A})$.
+
+Now, we observe that $F$ cannot be a faithful functor, which will imply it cannot lead to an equivalence of categories: indeed, let $\mathcal{A}$ be the category of abelian groups,
+and consider the complexes $$[\sfrac{\Z}{2\Z}\overset{0}{\rightarrow}\sfrac{\Z}{2\Z}]$$ and $$[\sfrac{\Z}{2\Z}=\sfrac{\Z}{2\Z}].$$ Then, the group of morphisms between such complexes in
+$C^{0,1}(\mathcal{A})$ is not zero, since the morphism of complexes given vertically by respectively the zero map and the identity is not the zero morphism. However, $[\ssfrac{\Z}{2\Z}=\ssfrac{\Z}{2\Z}]$ is exact, and thus
+isomorphic to  $[0]$ in $D(\mathcal{A})$, so the only morphism between the two complexes in $D^{0,1}(\mathcal{A})$ is the zero morphism. Thus, $F$ induces a non-injective map between
+the respective hom-sets, and is as such not faithful.
+	\end{itemize}
+\end{exercise}
+\begin{exercise}
+	\begin{itemize}\
+		In the following, we indicated with $Ab$ the category of abelian groups.
+
+		\item[(a)] Consider the following morphism between two instances of the same complex in $C(Ab)$:
+			\begin{equation*}
+				\begin{tikzcd}
+					0\rar&\sfrac{\Z}{2\Z}\ar[d, Equal]\rar["\cdot 2"]&\sfrac{\Z}{4\Z}\ar[d, Equal]\rar["\pi"]\ar[ld, "\nexists", swap, dashed]&\sfrac{\Z}{2\Z}\ar[d, Equal]\rar&0\\
+					0\rar&\sfrac{\Z}{2\Z}\rar["\cdot 2"]&\sfrac{\Z}{4\Z}\rar["\pi"]&\sfrac{\Z}{2\Z}\rar&0.
+				\end{tikzcd}
+			\end{equation*}
+			Evidently, it induces the zero morphism in the derived category as the complex is acyclic; however, it cannot be homotopic to $0$ as the vertical identity
+			on the first term cannot factor through multiplication by two on the first row, as indicated visually in the diagram (as $1$ goes to $2$, and all
+			group homomorphisms from $\sfrac{\Z}{4\Z}$ to $\sfrac{\Z}{2\Z}$ send $2$ to $0$).
+		\item[(b)] We consider the following morphism of complexes concentrated in degrees $0,1$ in $C(Ab)$:
+			\begin{equation*}
+				\begin{tikzcd}
+					&\sfrac{\Z}{2\Z}\ar[d, Equal]\rar["\cdot 2"]&\sfrac{\Z}{4\Z}\ar[d,"0"]\\
+					&\sfrac{\Z}{2\Z}\rar["0"]&0
+				\end{tikzcd}
+			\end{equation*}
+			This induces the zero map in homology since the homology of the first complex is $0$ in degree 0 and that of the second complex is $0$ in degree 1.
+
+			However, we will show that it is not $0$ in the derived category: indeed, suppose there is a complex $D^\bullet$ and a quasi-isomorphism to it coming from the
+			second complex in the above diagram with a homotopy between the morphism given by vertical composition and $0$:
+			\begin{equation*}
+				\begin{tikzcd}
+					&&\sfrac{\Z}{2\Z}\ar[d, Equal]\ar[ldd, dashed, "k^{-1}", swap]\rar["\cdot 2"]&\sfrac{\Z}{4\Z}\ar[ldd, dashed,"k^{0}", swap]\ar[d,"0"]\\
+					&&\sfrac{\Z}{2\Z}\ar[d,"s"]\rar&0\ar[d,"0"]\\
+					\dots\rar&D^{-1}\rar["d^{-1}"]&D^{0}\rar["d^0"]&D^1\rar&\dots.
+				\end{tikzcd}
+			\end{equation*}
+			Since $s$ needs to induce an isomorphism in homology, the image of $1$ through it should generate $H^0(D^\bullet)$ modulo the cycles $B_{D^\bullet}^0$.
+
+			Moreover, since we
+			assumed there is an homotopy between $s \circ \text{id}$ and $0$, we would have
+			$$s(1)=d_{D^\bullet}^{-1}\circ k^{-1}(1)+k^0(1\cdot 2).$$
+			However, the above implies that in homology the image of $1$ through the map induced by $s$ is congruent to $0$, which is a contradiction since
+			it should generate $H^0(D^\bullet)\cong\ssfrac{\Z}{2\Z}$.
+	\end{itemize}
+\end{exercise}
+\begin{exercise} (Done in collaboration with Marco Sanna)\
+
+	\begin{itemize}
+		\item[(a)] We can assume by shifting that $a=0$, and by applying the canonical truncation in degrees $\geq 0$ (which here induces an isomorphism in $D(\mathcal{A})$ by hypothesis) we can also assume that $A^\bullet$ is concentrated in
+			degrees $\geq 0$.
+
+			Now, using the natural morphisms of complexes from $A^\bullet$ to its truncation in degrees  $\geq 1$ defined in Construction 10.13 of notes, we have that
+			the following diagram commutes:
+			\begin{equation*}
+				\begin{tikzcd}
+					A^\bullet\rar["\psi"]\ar[d,"\phi"]&\tau_{\geq 1}(A^\bullet)\ar[d,"\tau_{\geq 1}(\phi)=0"]\\
+					A^\bullet\rar["\psi"]&\tau_{\geq 1}(A^\bullet)
+				\end{tikzcd}
+			\end{equation*}
+			Therefore, we have that $\psi\circ\phi$ factors through zero, and we can use the exact triangle associated with the cone of the identity map on $A^\bullet$ to get the desired factorization:
+			indeed, we can place it above the exact sequence from construction 10.13 and shift it to obtain the following diagram (using \text{Lemma} 9.10 (2))
+			\begin{equation*}
+				\begin{tikzcd}
+					A^\bullet\ar[d,"\phi"]\rar&0\rar\ar[d]&A^\bullet[1]\rar[Equal]\ar[d,dashed,"\exists {\chi[1]}"]&(A^\bullet)[1]\ar[d,"{\phi\left[1\right]}"]&\\
+					A^\bullet\rar["\psi"]&\tau_{\geq 1}(A^\bullet)\rar&H^0(A^\bullet)[1]\rar["{i[1]}"]&A^\bullet[1]
+				\end{tikzcd}
+			\end{equation*}
+			Now, we shift back to get the desired factorization:
+			\begin{equation*}
+				\begin{tikzcd}
+					A^\bullet\rar[Equal]\ar[d,dashed,"{\chi}"]&(A^\bullet)\ar[d,"{\phi}"]\rar&0\ar[d]\rar&A^\bullet[1]\ar[d,dashed,"{\chi[1]}"]&\\
+					H^0(A^\bullet)\rar["i"]&A^\bullet\rar["\psi"]&\tau_{\geq 1}(A^\bullet)\rar&H^0(A^\bullet)[1]
+				\end{tikzcd}
+			\end{equation*}
+		\item[(b)] As in part $(a)$, suppose without loss of generality that $a=0$ (by shifting), and also that $A^\bullet$ is concentrated in degrees $0\leq i\leq b$ (since in such degrees the
+			two canonical truncations induce isomorphisms in $D\left( \mathcal{A} \right) $ by hypothesis).
+
+			We then prove the claim by induction on $b$ : if $b=0$, then
+			$A^\bullet=[0\rightarrow A^0\rightarrow 0]$, but then $A^\bullet$ is a complex concentrated in degree $0$, and by the equivalence functor $F$ of abelian
+			categories constructed in Exercise $4.1$ (a) above, the fact that $H^0(\phi)=0$ from $H^0(A^\bullet)=F\left( A^\bullet \right) $ to itself implies that $\phi=0$
+			as well.
+
+			If $b>0$, we first apply the truncation $\tau_{\geq 1}$ to obtain a shorter complex, concentrated in degrees $1\leq i \leq b$, and since $H^i(\tau_{\geq
+			1}(\phi))=0$ holds a fortiori
+			we can apply the inductive hypothesis to get
+			$\left( \tau_{\geq 1}(\phi) \right)^b=0$, which by functoriality means that
+			$$\tau_{\geq 1}(\phi^b)=0.$$
+Then, by part $(a)$ of this exercise $\phi^b$ factors through $H^0(A^\bullet)$, and now we can use the exact triangle (21) from Construction 10.13 in the course notes to get the
+commutative diagram
+\begin{equation*}
+	\begin{tikzcd}
+		H^0(A^\bullet)\ar[d, "H^0(\phi)"]\rar["i"]&A^\bullet\ar[l, "\overline{\phi}", dashed, bend right=60]\ar[d,"\phi"]\\
+		H^0(A^\bullet)\rar["i"]&A^\bullet,
+	\end{tikzcd}
+\end{equation*}
+where $\overline{\phi}$ is the factoring map (such that $\phi^b=i\circ\overline{\phi}$). Then, by commutativity of the diagram $\phi^{b+1}$ factors through $H^0(\phi)=0$, so it is
+the zero map.
+	\end{itemize}
+\end{exercise}
+\begin{exercise}
+	\begin{itemize}\
+
+		\item[(a)] The "only if" part of the statement follows from the fact that the connecting map of the exact triangle associated with the split exact sequence
+			$0\rightarrow A^\bullet\rightarrow A^\bullet\oplus C^\bullet\rightarrow C^\bullet\rightarrow 0$ is 0: indeed, consider the following diagram
+			\begin{equation*}
+				\begin{tikzcd}
+					A^\bullet\ar[d,"\cong"]\rar&B^\bullet\rar\ar[d,"\cong"]&C^\bullet\rar["f"]\ar[d,"\cong"]&(A^\bullet)[1]\ar[d,"\cong"]&\\
+					A^\bullet\rar& A^\bullet\oplus C^\bullet\rar["\pi_{C}"]& C^\bullet\rar["\omega"]\ar[l, bend left=60, dashed, "i_{C}"]&A^\bullet[1].
+				\end{tikzcd}
+			\end{equation*}
+			If we retract $C^\bullet$ with the
+			inclusion in the direct sum, then project back to it (which yields the identity), and then go forward again with the connecting map, by part (1) of
+			\textbf{Lemma} 9.9 in the course notes (which says that composition of two successive maps in an exact triangle is zero) we get that the connecting map
+			$\omega$ is
+			$0$. Finally, the isomorphism between the two exact triangles tells us exactly that $f=0$.
+
+			For the "if" part, we take the identity maps on the first, third and fourth terms of the two exact triangles in question, and since $f=0$ we have
+			commutativity of the right-most square (as the connecting map is still $0$ as above).
+			Therefore, we can shift and use \textbf{Lemma} 9.10 (2) as usual to get a vertical map which completes the diagram:
+			\begin{equation*}
+				\begin{tikzcd}
+					A^\bullet\ar[d,Equal]\rar&B^\bullet\rar\ar[d,"\varphi",dashed]&C^\bullet\rar["0"]\ar[d,Equal]&(A^\bullet)[1]\ar[d,Equal]&\\
+					A^\bullet\rar& A^\bullet\oplus C^\bullet\rar& C^\bullet\rar["0"]&A^\bullet[1].
+				\end{tikzcd}
+			\end{equation*}
+			By \textbf{Corollary} 9.11 (2), $\varphi$ also an isomorphism (since the identities are), which shows the claim.
+		\item[(b)] Let $A^\bullet$ be an object in $D^b(\mathcal{A})$. Then, by truncating above and below and shifting we can assume $A^\bullet$ to be a complex
+			concentrated in degrees $0\leq i\leq b$ for some $b\in\N$.
+			Let us proceed by induction on $b$: if $b=0$, then $A=H^0(A^\bullet)=[0\rightarrow A^0\rightarrow 0]$ which concludes.
+
+			If $b>0$, then applying the inductive hypothesis to the truncation in degrees $\leq b-1$ gives
+			$$ \tau_{\leq b-1}(A^\bullet)\cong\bigoplus_{i<b}{H^i(A^\bullet)[-i]} .$$
+			Now, using the exact triangle (20) from Construction 10.13 yields the exact triangle
+			$$\tau_{\leq b-1}(A^\bullet)\rightarrow \tau_{\leq b}(A^\bullet)=A^\bullet\rightarrow H^b(A^\bullet)[-b]\rightarrow\tau_{\leq b-1}(A^\bullet)[1],$$
+			and if we prove that the connecting map is $0$, we can apply part $(a)$ of the exercise to conclude that there is a splitting, meaning
+			$$ A^\bullet\cong\bigoplus_{i\leq b}{H^i(A^\bullet)[-i]} ,$$
+			and we are done.
+
+			Finally, observe that by commutativity of $\Hom$ and finite direct sums in additive categories, and by \textbf{Proposition} 11.12 of the notes we have
+			\begin{align*}
+				\Hom(H^b(A^\bullet)[-b],\tau_{\leq b-1}(A^\bullet)[1])&\cong\Hom\left(H^b(A^\bullet)[-b], \bigoplus_{i<b}{H^i(A^\bullet)[-i+1]} \right)\\
+										      &\cong\bigoplus_{i<b}\Hom\left( H^b(A^\bullet)[-b], H^i(A^\bullet)[-i+1] \right)\\
+										      &\cong\bigoplus_{i<b}\Hom\left( H^b(A^\bullet), H^i(A^\bullet)[b-i+1] \right)\\
+										      &\overset{11.12}{\cong}\bigoplus_{i<b}\Ext^{b-i+1}\left( H^b(A^\bullet), H^i(A^\bullet) \right)\\
+										      &\overset{b-1+1\geq 2}{=}0,
+			\end{align*}
+			which means that the connecting map is necessarily $0$.
+	\end{itemize}
+\end{exercise}
+\begin{exercise}
+	In order to compute $A^\bullet\otimes^\mathbf{L}B^\bullet$ and $B^\bullet\otimes^\mathbf{L}A^\bullet$, we choose complexes with projective terms $P^\bullet_A$ and $P^\bullet_B$ quasi-isomorphic to
+	respectively $A^\bullet$ and $B^\bullet$, which exist by \textbf{Lemma} 10.19 (1). Then, in $D^-(\mathcal{A})$,
+\begin{align*}
+	A^\bullet\otimes^\mathbf{L}B^\bullet&\cong P^\bullet_A\otimes^\mathbf{L}P^\bullet_B\\
+	B^\bullet\otimes^\mathbf{L}A^\bullet&\cong P^\bullet_B\otimes^\mathbf{L}P^\bullet_A
+.\end{align*}
+Now, fix $n\in\Z$, and define the following for $i,j\in\Z$ such that $i+j=n$:
+\begin{align*}
+	\varphi_n^{i,j}:\;&P^i_A\otimes P^j_B\rightarrow P^j_B\otimes P^i_A\\
+		  &p\otimes q\mapsto(-1)^{ij}(p\otimes q)
+.\end{align*}
+Then, this gives a bijection in each summand of the $n$-th component, and we only need to show that it is a morphism of complexes, which is the following computation:
+\begin{align*}
+	\bullet~&d_n^{j,i}(\varphi_n^{i,j}(p\otimes q))=\\
+	&d_n^{j,i}((-1)^{ij}(q\otimes p))=(-1)^{ij}(d^j_B(q)\otimes p)+(-1)^{j(i+1)}(q\otimes d^i_A(p)),\\
+	\bullet~&\varphi_n(d_n^{i,j}(p\otimes q))=\\
+	&\varphi_n^{i+1,j}(d^i_A(p)\otimes q)+(-i)^i\varphi_n^{i,j+1}(p\otimes d_B^j(q))=(-1)^{j(i+1)}(q\otimes d^i_A(p))+(-1)^{i(j+2)}(d_B^j(q)\otimes p).
+\end{align*}
+This shows that $\varphi$ commutes with the differentials in each degree, as the signs in the above agree: $$ ij\equiv i(j+2)\mod 2 .$$
+\end{exercise}
+\end{document}
