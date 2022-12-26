@@ -260,13 +260,17 @@ the zero map.
 	In order to compute $A^\bullet\otimes^\mathbf{L}B^\bullet$ and $B^\bullet\otimes^\mathbf{L}A^\bullet$, we choose complexes with projective terms $P^\bullet_A$ and $P^\bullet_B$ quasi-isomorphic to
 	respectively $A^\bullet$ and $B^\bullet$, which exist by \textbf{Lemma} 10.19 (1). Then, in $D^-(\mathcal{A})$,
 \begin{align*}
-	A^\bullet\otimes^\mathbf{L}B^\bullet&\cong P^\bullet_A\otimes^\mathbf{L}P^\bullet_B\\
-	B^\bullet\otimes^\mathbf{L}A^\bullet&\cong P^\bullet_B\otimes^\mathbf{L}P^\bullet_A
+	A^\bullet\otimes^\mathbf{L}B^\bullet&\cong P^\bullet_A\otimes^\mathbf{L}P^\bullet_B,\\
+	B^\bullet\otimes^\mathbf{L}A^\bullet&\cong P^\bullet_B\otimes^\mathbf{L}P^\bullet_A,
 .\end{align*}
+and such isomorphisms are canonical, since the result is independent (up to isomorphism) of the choice of complexes with projective terms, as any two
+such quasi-isomorphic complexes are homotopically equivalent (cf. the remark below
+Corollary 11.3 of the course notes).
+
 Now, fix $n\in\Z$, and define the following for $i,j\in\Z$ such that $i+j=n$:
 \begin{align*}
 	\varphi_n^{i,j}:\;&P^i_A\otimes P^j_B\rightarrow P^j_B\otimes P^i_A\\
-		  &p\otimes q\mapsto(-1)^{ij}(p\otimes q)
+		  &p\otimes q\mapsto(-1)^{ij}(q\otimes p)
 .\end{align*}
 Then, this gives a bijection in each summand of the $n$-th component, and we only need to show that it is a morphism of complexes, which is the following computation:
 \begin{align*}
